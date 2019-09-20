@@ -39,6 +39,7 @@ mutation{
 }
 
 #add Authorization header with value "JWT $token" and get current user with
+
 query{
   me{
     id
