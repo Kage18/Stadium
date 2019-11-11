@@ -17,14 +17,10 @@ class CustomerProfile(models.Model):
     def __str__(self):
         return self.Customer.username
 
-# def post_save_customerprofile_create(sender, instance, created, *args, **kwargs):
-#     if created:
-#         CustomerProfile.objects.get_or_create(Customer=instance)
-
-
-
-# post_save.connect(post_save_customerprofile_create, sender=User)
-
+# class game_session(models.Model):
+#     Customer = models.models.ManyToManyField(CustomerProfile)
+#     game = models.ManyToManyField(game)
+#     session_start =
 
 class VendorProfile(models.Model):
     Vendor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ven')
