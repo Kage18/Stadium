@@ -1,8 +1,8 @@
 import graphene
 import graphql_jwt
-import users.schema
+import users.schema, library.schema
 
-class Query(users.schema.Query, graphene.ObjectType):
+class Query(users.schema.Query, library.schema.Query, graphene.ObjectType):
     pass
 
 class Mutation(users.schema.Mutation, graphene.ObjectType):

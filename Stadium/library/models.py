@@ -11,10 +11,13 @@ class game(models.Model):
     price = models.DecimalField(max_digits = 7, decimal_places=2)
     tags = models.ManyToManyField(tags)
 
+    def __str__(self):
+        return self.name
+
 class game_owned(models.Model):
     customer = models.ManyToManyField(CustomerProfile)
     game = models.ManyToManyField(game)
     hours_played = models.TimeField(auto_now_add=False)
-    rating = models.IntegerField()
+    rating = models.IntegerField()  
     
 
