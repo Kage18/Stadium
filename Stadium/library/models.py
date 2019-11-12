@@ -15,9 +15,15 @@ class game(models.Model):
         return self.name
 
 class game_owned(models.Model):
-    customer = models.ManyToManyField(CustomerProfile)
-    game = models.ManyToManyField(game)
-    hours_played = models.TimeField(auto_now_add=False)
-    rating = models.IntegerField()  
+    customer = models.ForeignKey(CustomerProfile,on_delete=models.SET_NULL, null = True)
+    game = models.ForeignKey(game, on_delete = models.SET_NULL, null = True)
+    hours_played = models.TimeField(auto_now_add=False, default = "00:00:00")
+    rating = models.IntegerField(default = 0)
+
+    class Meta:
+        unique_together = (("customer", "game"),)
+
+    def __str__(self):
+        return self.customer.Customer.username +'--'+ self.game.name
     
 

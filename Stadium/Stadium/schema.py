@@ -1,6 +1,6 @@
 import graphene
 import graphql_jwt
-<<<<<<< HEAD
+
 import users.schema, library.schema, merch.schema
 
 class Query(users.schema.Query, library.schema.Query, merch.schema.Query, graphene.ObjectType):
