@@ -4,6 +4,8 @@ import django.utils.timezone as timezone
 from django.db.models.signals import post_save
 
 # Create your models here.
+
+
 class CustomerProfile(models.Model):
     Customer = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cus')
     DOB = models.DateField()
@@ -21,6 +23,7 @@ class CustomerProfile(models.Model):
 #     Customer = models.models.ManyToManyField(CustomerProfile)
 #     game = models.ManyToManyField(game)
 #     session_start =
+
 
 class VendorProfile(models.Model):
     Vendor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ven')
