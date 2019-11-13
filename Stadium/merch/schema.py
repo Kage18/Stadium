@@ -21,12 +21,16 @@ class MerchUserType(DjangoObjectType):
 class Query(ObjectType):
     merch = graphene.Field(MerchandiseType, id=graphene.Int())
     images = graphene.List(MerchImageType)
-    merchs = graphene.List(MerchandiseType, name=graphene.String())
+    merchs = graphene.List(MerchandiseType, name=graphene.String(), game_name=graphene.String())
 
     def resolve_merchs(self, info, **kwargs):
         name = kwargs.get('name')
+        game_name = kwargs.get('game_name')
         if name is not None:
             return Merchandise.objects.filter(name=name)
+        if game_name is not None:
+            return Merchandise.objects.filter(game=game.objects.filter(name=game_name)[0])
+
         return Merchandise.objects.all()
 
     def resolve_merch(self, info, **kwargs):
