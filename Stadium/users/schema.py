@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 import graphene
 from graphene_django import DjangoObjectType
-from users.models import CustomerProfile
+from users.models import CustomerProfile, VendorProfile
 
 class UserType(DjangoObjectType):
     class Meta:
@@ -11,9 +11,14 @@ class Customertype(DjangoObjectType):
     class Meta:
         model = CustomerProfile
 
+class Vendortype(DjangoObjectType):
+    class Meta:
+        model = VendorProfile
+
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
     customer = graphene.List(Customertype)
+    vendor = graphene.Field(Vendortype)
 
     class Arguments:
         username = graphene.String(required=True)

@@ -25,7 +25,7 @@ class CustomerProfile(models.Model):
 class VendorProfile(models.Model):
     Vendor = models.OneToOneField(User, on_delete=models.CASCADE, related_name='ven')
     api_key = models.TextField(null = True)
-    active = models.BooleanField()
+    active = models.BooleanField(default = True)
     joined  = models.DateField(auto_now_add = True)
 
     

@@ -38,13 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'gjwt_auth',
+    'djoser',
     'corsheaders',
     'users',
     'merch',
     'library',
 ]
 
-
+TEST_RUNNER = 'snapshottest.django.TestRunner'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,6 +74,13 @@ AUTHENTICATION_BACKENDS = [
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "http://10.0.36.67:3000",
+]
+
+
+# AUTH_USER_MODEL = "gjwt_auth.User"
 
 ROOT_URLCONF = 'Stadium.urls'
 
