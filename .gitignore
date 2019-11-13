@@ -117,3 +117,7 @@ dmypy.json
 eventManagement/.idea
 .atom/
 .vscode/
+
+#db and static
+*.sqlite
+media/
