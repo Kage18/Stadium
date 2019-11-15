@@ -81,7 +81,15 @@ CORS_ORIGIN_WHITELIST = [
 ]
 
 
-# AUTH_USER_MODEL = "gjwt_auth.User"
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+DOMAIN = os.getenv("DOMAIN")
+
+AUTH_USER_MODEL = "users.User"
 
 ROOT_URLCONF = 'Stadium.urls'
 
