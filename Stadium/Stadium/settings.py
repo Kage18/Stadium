@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
-    'gjwt_auth',
-    'djoser',
     'corsheaders',
     'users',
     'merch',
