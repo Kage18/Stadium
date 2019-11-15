@@ -1,11 +1,14 @@
 from django.contrib.auth import get_user_model
+from users.models import User
 import graphene
 from graphene_django import DjangoObjectType
 from users.models import CustomerProfile, VendorProfile
+from users.send_emails import send_confirmation_email
+
 
 class UserType(DjangoObjectType):
     class Meta:
-        model = get_user_model()
+        model = User
 
 class Customertype(DjangoObjectType):
     class Meta:
@@ -31,7 +34,7 @@ class CreateUser(graphene.Mutation):
         avatar = graphene.String(default_value = '')
 
     def mutate(self, info, username, password, email, DOB, gender, phone_no, bio, avatar):
-        user = get_user_model()(
+        user = User.objects.create_user(
             username=username,
             email=email,
         )
@@ -46,9 +49,7 @@ class CreateUser(graphene.Mutation):
             bio = bio,
             avatar = avatar,    
         )
-
-
-
+        send_confirmation_email(email=user.email, username=user.username)
         return CreateUser(user=user, customer = customer)
 
 
