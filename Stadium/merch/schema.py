@@ -9,6 +9,11 @@ class MerchandiseType(DjangoObjectType):
 
 
 class MerchImageType(DjangoObjectType):
+    url = graphene.String()
+
+    def resolve_url(self, info):
+        return self.image.url
+
     class Meta:
         model = MerchImage
 
@@ -19,6 +24,7 @@ class MerchUserType(DjangoObjectType):
 
 
 class Query(ObjectType):
+    image = graphene.Field(MerchImageType, id=graphene.Int())
     merch = graphene.Field(MerchandiseType, id=graphene.Int())
     images = graphene.List(MerchImageType)
     merchs = graphene.List(MerchandiseType, name=graphene.String(), game_name=graphene.String())
@@ -32,6 +38,10 @@ class Query(ObjectType):
             return Merchandise.objects.filter(game=game.objects.filter(name=game_name)[0])
 
         return Merchandise.objects.all()
+
+    def resolve_image(self, info, **kwargs):
+        idd = kwargs.get('id')
+        return MerchImage.objects.get(pk=idd)
 
     def resolve_merch(self, info, **kwargs):
         id = kwargs.get('id')

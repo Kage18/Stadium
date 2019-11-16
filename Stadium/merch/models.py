@@ -8,7 +8,7 @@ from transactions.models import Transaction
 
 class MerchImage(models.Model):
     image = models.ImageField()
-
+    
 
 class Merchandise(models.Model):
     game = models.ForeignKey(game, on_delete=models.CASCADE)

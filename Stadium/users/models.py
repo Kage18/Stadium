@@ -58,7 +58,7 @@ class CustomerProfile(models.Model):
     Customer = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cus')
     DOB = models.DateField()
     gender = models.IntegerField()
-    phone_no = models.IntegerField()
+    phone_no = models.CharField(max_length=15)
     bio = models.TextField(null=True)
     joined = models.DateField(auto_now_add=True)
     avatar = models.TextField(null=True)
