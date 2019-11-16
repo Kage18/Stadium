@@ -20,16 +20,26 @@ class Query(graphene.ObjectType):
     games = graphene.List(GameType)
     game = graphene.Field(GameType, id = graphene.Int())
     tags = graphene.List(TagType)
-    game_owned_by_user = graphene.List(GameowendType, user_id = graphene.Int())
-    game_owned_by_game = graphene.List(GameowendType, game_id = graphene.Int())
+    game_owned = graphene.List(GameowendType, user_id = graphene.Int(), game_id = graphene.Int())
+    # game_owned_by_game = graphene.List(GameowendType, game_id = graphene.Int())
 
-    def resolve_game_owned_by_game(self, info, **kargs):
+    def resolve_game_owned(self, info, **kargs):
       game_id = kargs.get('game_id')
-      return game_owned.objects.filter(game = game_id)
-
-    def resolve_game_owned_by_user(self, info, **kargs):
       user_id = kargs.get('user_id')
-      return game_owned.objects.filter(customer = user_id)
+      print(game_id and user_id)
+      
+      if (user_id and game_id) != None:
+        return game_owned.objects.filter(game = game_id, customer = user_id)
+      elif user_id == None and game_id == None:
+        print("here")
+        return game_owned.objects.all()
+      elif user_id == None:
+        return game_owned.objects.filter(game=game_id)
+      elif game_id == None:
+        return game_owned.objects.filter(customer=user_id)
+      
+
+      
 
     def resolve_tags(self,info):
       return tags.objects.all()

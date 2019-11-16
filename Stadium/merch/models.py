@@ -22,4 +22,4 @@ class Merchandise(models.Model):
 class MerchUser(models.Model):
     user = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE)
     merch = models.ForeignKey(Merchandise, on_delete=models.CASCADE)
-    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    transaction = models.OneToOneField(Transaction, on_delete=models.CASCADE)

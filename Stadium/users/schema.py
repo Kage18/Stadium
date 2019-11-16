@@ -58,7 +58,7 @@ class Mutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
-    me = graphene.Field(UserType)
+    me = graphene.Field(Customertype)
     users = graphene.List(UserType)
     customer = graphene.List(Customertype)
 
@@ -72,4 +72,4 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if user.is_anonymous:
             raise Exception('Authentication Failure!')
-        return user
+        return CustomerProfile.objects.get(Customer=user)

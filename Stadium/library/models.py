@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomerProfile
+from transactions.models import Transaction
 # Create your models here.
 
 class tags(models.Model):
@@ -19,6 +20,7 @@ class game_owned(models.Model):
     game = models.ForeignKey(game, on_delete = models.SET_NULL, null = True)
     hours_played = models.TimeField(auto_now_add=False, default = "00:00:00")
     rating = models.IntegerField(default = 0)
+    transaction = models.OneToOneField(Transaction, on_delete=models.SET_NULL, null=True) 
 
     class Meta:
         unique_together = (("customer", "game"),)
