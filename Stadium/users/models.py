@@ -47,10 +47,10 @@ class User(AbstractUser):
    email = models.EmailField(max_length=100, unique=True)
    password = models.CharField(max_length=100)
    is_verified = models.BooleanField(default=False)
-#    username = models.CharField(blank=True,error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')
+
    USERNAME_FIELD = 'email'
    REQUIRED_FIELDS = []
-#    EXCLUDE_FIELDS = 'username'
+
    objects = UserManager()
 
 

@@ -6,7 +6,7 @@ from Stadium.settings import SECRET_KEY, DOMAIN, SENDGRID_API_KEY
  
  
 def send_confirmation_email(email, username):
-    print("here")
+    # print("here")
     token = jwt.encode({'user': username}, SECRET_KEY,
                        algorithm='HS256').decode('utf-8')
     context = {
@@ -30,5 +30,5 @@ def send_confirmation_email(email, username):
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         sg.send(message)
     except Exception as e:
-        print(str(e),SENDGRID_API_KEY)
+        # print(str(e),SENDGRID_API_KEY)
         return str(e)

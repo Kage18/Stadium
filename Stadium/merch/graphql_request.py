@@ -1,0 +1,32 @@
+List_merch="""
+query{
+  merchs{
+    id
+    desc
+    name
+    images{
+      url
+      id
+    }
+  }
+}
+"""
+
+Merchowned="""
+query{
+  merchs{
+    id
+    desc
+    name
+    merchuserSet{
+      id
+      user{
+        Customer{
+          username
+        }
+      }
+    }
+  }
+}
+
+"""
