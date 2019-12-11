@@ -20,11 +20,13 @@ from graphene_django.views import GraphQLView
 from django.conf.urls.static import static
 from django.conf import settings
 from users.views import activate_account
+from containers.views import multiply
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('activate/<token>', activate_account, name='activate'),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('container/',multiply),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

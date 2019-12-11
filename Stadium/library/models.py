@@ -16,7 +16,7 @@ class game(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2)
     tags = models.ManyToManyField(tags)
     images = models.ManyToManyField(GameImage)
-
+    rom = models.FileField()
     def __str__(self):
         return self.name
 

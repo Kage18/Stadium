@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'merch',
     'library',
     'transactions',
+    'containers',
 ]
 
 TEST_RUNNER = 'snapshottest.django.TestRunner'
