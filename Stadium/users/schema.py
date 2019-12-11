@@ -1,3 +1,5 @@
+import copy
+
 from django.contrib.auth import get_user_model
 from users.models import User
 import graphene
@@ -44,17 +46,19 @@ class CreateFriendRequest(graphene.Mutation):
     def mutate(self, info, to_user_email):
         if info.context.user.is_anonymous:
             raise Exception("Auth nai baya")
-        from_user = CustomerProfile.objects.get(Customer=User.objects.filter(email=info.context.user)[0])
+        from_user = CustomerProfile.objects.get(Customer=info.context.user)
         try:
-            to_user = CustomerProfile.objects.get(Customer=User.objects.filter(email=to_user_email)[0])
+            print(to_user_email)
+            to_user = CustomerProfile.objects.get(Customer=User.objects.get(email=to_user_email))
         except:
             raise Exception("Wrong email")
         search_if_existing = FriendRequest.objects.filter(from_user=to_user, to_user=from_user)
         if len(search_if_existing) != 0:
-            print("huhu")
+            print(from_user, to_user)
             f = search_if_existing[0]
-            f.from_user.friends.add(to_user)
-            f_copy = f
+            from_user.friends.add(to_user)
+            to_user.friends.add(from_user)
+            f_copy = copy.deepcopy(f)
             f.delete()
             return f_copy
         else:
@@ -76,9 +80,8 @@ class CreateUser(graphene.Mutation):
         gender = graphene.Int(required=True)
         phone_no = graphene.String(required=True)
         bio = graphene.String(default_value='')
-        avatar = graphene.String(default_value='')
 
-    def mutate(self, info, username, password, email, DOB, gender, phone_no, bio, avatar):
+    def mutate(self, info, username, password, email, DOB, gender, phone_no, bio):
         user = User.objects.create_user(
             username=username,
             email=email,
@@ -86,14 +89,15 @@ class CreateUser(graphene.Mutation):
         user.set_password(password)
         user.save()
 
-        customer = CustomerProfile.objects.get_or_create(
+        customer = CustomerProfile.objects.create(
             Customer=user,
             DOB=DOB,
             gender=gender,
             phone_no=phone_no,
-            bio=bio,
-            avatar=avatar,
+            bio=bio
         )
+        customer.avatar.add(AvatarImage.objects.get(pk=1))
+        customer.save()
         send_confirmation_email(email=user.email, username=user.username)
         return CreateUser(user=user, customer=customer)
 
@@ -113,7 +117,6 @@ class Query(graphene.ObjectType):
 
     def resolve_pendingRequests(self, info):
         print(info.context.user)
-        u = User.objects.filter(email=info.context.user)[0]
         return FriendRequest.objects.filter(to_user=CustomerProfile.objects.get(Customer=info.context.user))
 
     def resolve_users(self, info):
