@@ -36,10 +36,14 @@ class CreateFriendRequest(graphene.Mutation):
     def mutate(self, info, to_user_email):
         if info.context.user.is_anonymous:
             raise Exception("Auth nai baya")
-        from_user = CustomerProfile.objects.get(Customer=info.context.user)
-        to_user = CustomerProfile.objects.get(Customer=User.objects.filter(email=to_user_email)[0])
+        from_user = CustomerProfile.objects.get(Customer=User.objects.filter(email=info.context.user)[0])
+        try:
+            to_user = CustomerProfile.objects.get(Customer=User.objects.filter(email=to_user_email)[0])
+        except:
+            raise Exception("Wrong email")
         search_if_existing = FriendRequest.objects.filter(from_user=to_user, to_user=from_user)
         if len(search_if_existing) != 0:
+            print("huhu")
             f = search_if_existing[0]
             f.from_user.friends.add(to_user)
             f_copy = f
@@ -95,6 +99,12 @@ class Query(graphene.ObjectType):
     me = graphene.Field(Customertype)
     users = graphene.List(UserType)
     customer = graphene.List(Customertype)
+    pendingRequests = graphene.List(FriendRequestType)
+
+    def resolve_pendingRequests(self, info):
+        print(info.context.user)
+        u = User.objects.filter(email=info.context.user)[0]
+        return FriendRequest.objects.filter(to_user=CustomerProfile.objects.get(Customer=info.context.user))
 
     def resolve_users(self, info):
         return get_user_model().objects.all()
@@ -106,5 +116,4 @@ class Query(graphene.ObjectType):
         user = info.context.user
         if user.is_anonymous:
             raise Exception('Authentication Failure!')
-
         return CustomerProfile.objects.get(Customer=user)
