@@ -47,11 +47,14 @@ class User(AbstractUser):
    email = models.EmailField(max_length=100, unique=True)
    password = models.CharField(max_length=100)
    is_verified = models.BooleanField(default=False)
-#    username = models.CharField(blank=True,error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')
+
    USERNAME_FIELD = 'email'
    REQUIRED_FIELDS = []
-#    EXCLUDE_FIELDS = 'username'
+
    objects = UserManager()
+
+class AvatarImage(models.Model):
+    image = models.ImageField(default='giphy.gif')
 
 
 class CustomerProfile(models.Model):
@@ -61,7 +64,7 @@ class CustomerProfile(models.Model):
     phone_no = models.CharField(max_length=15)
     bio = models.TextField(null=True)
     joined = models.DateField(auto_now_add=True)
-    avatar = models.TextField(null=True)
+    avatar = models.ManyToManyField(AvatarImage)
     friends = models.ManyToManyField("CustomerProfile")
 
     def __str__(self):
