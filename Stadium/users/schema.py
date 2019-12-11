@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from users.models import User
 import graphene
 from graphene_django import DjangoObjectType
-from users.models import CustomerProfile, VendorProfile, FriendRequest
+from users.models import CustomerProfile, VendorProfile, FriendRequest, AvatarImage
 from users.send_emails import send_confirmation_email
 
 
@@ -10,6 +10,14 @@ class UserType(DjangoObjectType):
     class Meta:
         model = User
 
+class AvatarImageType(DjangoObjectType):
+    url = graphene.String()
+
+    def resolve_url(self, info):
+        return self.image.url
+
+    class Meta:
+        model = AvatarImage
 
 class Customertype(DjangoObjectType):
     class Meta:
@@ -92,6 +100,8 @@ class Mutation(graphene.ObjectType):
 
 
 class Query(graphene.ObjectType):
+    image = graphene.Field(AvatarImageType, id=graphene.Int())
+    images = graphene.List(AvatarImageType)
     me = graphene.Field(Customertype)
     users = graphene.List(UserType)
     customer = graphene.List(Customertype)
@@ -101,6 +111,10 @@ class Query(graphene.ObjectType):
 
     def resolve_customer(self, info):
         return CustomerProfile.objects.all()
+
+    def resolve_image(self, info, **kwargs):
+        idd = kwargs.get('id')
+        return AvatarImage.objects.get(pk=idd)
 
     def resolve_me(self, info):
         user = info.context.user
