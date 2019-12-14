@@ -53,6 +53,9 @@ class User(AbstractUser):
 
    objects = UserManager()
 
+class AvatarImage(models.Model):
+    image = models.ImageField(default='giphy.gif')
+
 
 class CustomerProfile(models.Model):
     Customer = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cus')
@@ -61,7 +64,7 @@ class CustomerProfile(models.Model):
     phone_no = models.CharField(max_length=15)
     bio = models.TextField(null=True)
     joined = models.DateField(auto_now_add=True)
-    avatar = models.TextField(null=True)
+    avatar = models.ManyToManyField(AvatarImage)
     friends = models.ManyToManyField("CustomerProfile")
 
     def __str__(self):

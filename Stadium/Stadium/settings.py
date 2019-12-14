@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'merch',
     'library',
     'transactions',
+    'containers',
 ]
 
 TEST_RUNNER = 'snapshottest.django.TestRunner'
@@ -108,7 +109,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Stadium.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
