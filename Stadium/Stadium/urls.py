@@ -21,12 +21,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 from users.views import activate_account
 from containers.views import multiply
-
+from library.views import add_minute
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('activate/<token>', activate_account, name='activate'),
     path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    path('container/',multiply),
+    path('container/<int:pk>/<int:userid>',multiply),
+    path('container/<int:pk>/',multiply),
+    path('add_time/', csrf_exempt(add_minute)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

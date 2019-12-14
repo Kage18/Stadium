@@ -5,9 +5,17 @@ from transactions.models import Transaction
 class GameImage(models.Model):
     image = models.ImageField()
 
+    def __str__(self):
+        return self.image.url
+    
+
 
 class tags(models.Model):
     t_name = models.TextField()
+
+    def __str__(self):
+        return self.t_name
+    
 
 
 class game(models.Model):
