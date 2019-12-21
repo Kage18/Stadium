@@ -16,11 +16,11 @@ class UserTestCase(APITestCase):
             phone_no="9340143387",
             Customer=self.dummy_user
         )
-    def test_create_user(self):
-        self.snapshot_graphql_request(
-            request_string=Create_User,
-            variables={},
-        )
+    # def test_create_user(self):
+    #     self.snapshot_graphql_request(
+    #         request_string=Create_User,
+    #         variables={},
+    #     )
 
     def test_user(self):
         self.snapshot_graphql_request(

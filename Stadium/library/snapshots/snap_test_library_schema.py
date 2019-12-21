@@ -69,7 +69,7 @@ snapshots['LibraryTestCase::test_gameowed 1'] = {
                     ],
                     'name': 'Dummy'
                 },
-                'hoursPlayed': '00:00:00',
+                'hoursPlayed': 0,
                 'rating': 0
             }
         ]
