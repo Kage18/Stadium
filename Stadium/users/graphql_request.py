@@ -24,7 +24,9 @@ query{
         phoneNo
         bio
         joined
-        avatar
+        avatar{
+          url
+        }
       }
 }
 """
@@ -54,7 +56,6 @@ query{
         phoneNo
         bio
         joined
-        avatar
         friends{
           Customer{
             username
