@@ -13,7 +13,7 @@ django-filter==1.1.0
 django-graphql-jwt==0.1.5
 django-six==1.0.4
 django-templated-mail==1.1.1
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 djangorestframework-filters==0.11.1
 djangorestframework-jwt==1.11.0
 djoser==2.0.3
