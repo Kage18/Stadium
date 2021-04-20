@@ -34,7 +34,7 @@ packaging==19.2
 Pillow==6.2.1
 pluggy==0.13.0
 promise==2.2.1
-py==1.8.0
+py==1.10.0
 PyJWT==1.7.1
 pylint==2.4.0
 pyparsing==2.4.5
