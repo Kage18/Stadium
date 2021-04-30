@@ -50,7 +50,7 @@ six==1.12.0
 snapshottest==0.5.1
 termcolor==1.1.0
 typed-ast==1.2.0
-urllib3==1.25.7
+urllib3==1.25.8
 wasmer==0.3.0
 wcwidth==0.1.7
 websocket-client==0.56.0
